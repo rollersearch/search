@@ -1,0 +1,1 @@
+{"schema":1,"id":331,"category":"feature","title":"Add support for Symfony 8 and Api-Platform 4.2","flags":["bc-break","deprecation"],"authors":["sstok"]}
