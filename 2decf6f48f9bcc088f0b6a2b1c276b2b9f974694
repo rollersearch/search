@@ -1,0 +1,22 @@
+---------------------------------------------------------------------------
+
+by sstok at 2026-01-05T12:58:41Z
+
+This is going to take a lot more work than expected, `matthiasnoback/symfony-dependency-injection-test:5.1` is not compatible with Symfony 8, but we can't use version 6.1 (which is compatible) as this requires a newer version of PHPUnit, which requires many changes to the codebase.
+
+It worked locally as I wasn't using the Flex `SYMFONY_REQUIRE` environment option. But when enforcing all Symfony packages it fails.
+
+---------------------------------------------------------------------------
+
+by sstok at 2026-01-06T15:48:52Z
+
+The 
+
+```
+
+Error:  Uncaught PHP Exception Rollerworks\Component\Search\ApiPlatform\Exception\InvalidConditionException: "[id][0]: This value is not valid." at SearchConditionListener.php line 211
+Error:  Uncaught PHP Exception Rollerworks\Component\Search\ApiPlatform\Exception\InvalidConditionException: "[id][0]: This value is not valid." at SearchConditionListener.php line 211
+```
+
+Is irrelevant. 
+
