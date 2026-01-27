@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------
+
+by sstok at 2026-01-27T15:13:32Z
+
+Could you kindly work already?
+
+---------------------------------------------------------------------------
+
+by sstok at 2026-01-27T17:19:49Z
+
+OK, should be good now. The composer validation error is expected, so this working well.
+
+Figured out why PHPStan keeps failing, the baseline file keeps conflicting.
+So it's best to remove it, ~~which should work.~~ which fixes the problem.
+
