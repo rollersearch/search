@@ -18,6 +18,7 @@ return [
                 'lib/Symfony/Validator' => 'git@github.com:rollerworks/search-symfony-validator.git',
             ],
         ],
+        '1.x' => false,
     ],
     'pull_request' => [
         'split' => 'changed-only',
