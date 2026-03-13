@@ -1,0 +1,1 @@
+{"schema":1,"id":340,"category":"bug","title":"[Core] Fix GenericFieldSetBuilder::set() unresolve","flags":[],"authors":["sstok"]}
