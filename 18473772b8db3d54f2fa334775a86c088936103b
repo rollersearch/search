@@ -1,0 +1,1 @@
+{"schema":1,"id":339,"category":"feature","title":"[Core] Harden StringLexer against mis-usage","flags":[],"authors":["sstok"]}
