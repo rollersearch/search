@@ -1,0 +1,20 @@
+---------------------------------------------------------------------------
+
+by sstok at 2026-03-16T18:37:05Z
+
+https://github.com/sebastianbergmann/phpunit/issues/5403 This is "interesting"...
+
+And of course I can't reproduce this locally!! 🎉 
+
+---------------------------------------------------------------------------
+
+by sstok at 2026-03-16T19:00:25Z
+
+Ah figured it out. The `SearchConditionSerializer` sets a custom error-handler that is removed in finally, but before this the condition is already returned and handler is still the custom one.
+
+---------------------------------------------------------------------------
+
+by sstok at 2026-03-16T19:58:31Z
+
+Well that wasn't the problem then... as removing the custom error handler still makes things fail.
+
