@@ -15,12 +15,18 @@ namespace Rollerworks\Component\Search\Input;
 
 use Rollerworks\Component\Search\Exception\InputProcessorException;
 use Rollerworks\Component\Search\FieldSet;
+use Rollerworks\Component\Search\Util\DataAttributesTrait;
 
 /**
  * Holds the configuration for an Input processor.
+ *
+ * Attributes might be used to store additional configuration information
+ * for validators, optimizers, etc.
  */
 class ProcessorConfig
 {
+    use DataAttributesTrait;
+
     private int $maxNestingLevel = 5;
     private int $maxValues = 100;
     private int $maxGroups = 10;

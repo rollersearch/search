@@ -30,7 +30,7 @@ parameters:
 
         -
             # This is expected as part of the actual test
-            message: '#^Parameter \#1 \$searchCondition of method Rollerworks\\Component\\Search\\SearchConditionSerializer\:\:unserialize\(\) expects array\{string, string\}#'
+            message: '#^Parameter \#1 \$searchCondition of method Rollerworks\\Component\\Search\\SearchConditionSerializer\:\:unserialize\(\) expects#'
             identifier: argument.type
             path: lib/Core/Tests/SearchConditionSerializerTest.php
 
