@@ -1,6 +1,6 @@
 <?php
 
-// See https://hupkit.github.io/hupkit/config.html#local-configuration
+// See https://hupkit.dev/config.html#initialize-configuration-for-a-repository
 
 return [
     'schema_version' => 2,
@@ -9,13 +9,13 @@ return [
         ':default' => [
             'sync-tags' => true,
             'split' => [
-                'lib/ApiPlatform' => 'git@github.com:rollerworks/search-api-platform.git',
-                'lib/Core' => 'git@github.com:rollerworks/search-core.git',
-                'lib/Doctrine/Dbal' => 'git@github.com:rollerworks/search-doctrine-dbal.git',
-                'lib/Doctrine/Orm' => 'git@github.com:rollerworks/search-doctrine-orm.git',
-                'lib/Elasticsearch' => 'git@github.com:rollerworks/search-elasticsearch.git',
-                'lib/Symfony/SearchBundle' => 'git@github.com:rollerworks/RollerworksSearchBundle.git',
-                'lib/Symfony/Validator' => 'git@github.com:rollerworks/search-symfony-validator.git',
+                'lib/ApiPlatform' => 'git@github.com:rollersearch/search-api-platform.git',
+                'lib/Core' => 'git@github.com:rollersearch/search-core.git',
+                'lib/Doctrine/Dbal' => 'git@github.com:rollersearch/search-doctrine-dbal.git',
+                'lib/Doctrine/Orm' => 'git@github.com:rollersearch/search-doctrine-orm.git',
+                'lib/Elasticsearch' => 'git@github.com:rollersearch/search-elasticsearch.git',
+                'lib/Symfony/SearchBundle' => 'git@github.com:rollersearch/search-bundle.git',
+                'lib/Symfony/Validator' => 'git@github.com:rollersearch/search-symfony-validator.git',
             ],
         ],
         '1.x' => false,
