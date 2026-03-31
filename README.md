@@ -10,12 +10,6 @@ Whether you want to search for users in your SQL database, want to provide a
 powerful search system for searching products using an ElasticSearch back-end, 
 or are looking for a way to abstract filtering for a reporter.
 
-> [!IMPORTANT]
-> RollerworksSearch v2.0 is fully not stable yet, a stable release is
-> expected no later than 31th of March 2026.
-> 
-> Feel free to try out the project and report any issues you find.
-
 > [!WARNING]
 > Elasticsearch support is [currently broken](https://github.com/rollersearch/search/issues/347)
 > and might not be fixed until the next stable release (after v2.0.0).
