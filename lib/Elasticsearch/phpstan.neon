@@ -1,5 +1,0 @@
-parameters:
-    autoload_files:
-        - vendor/autoload.php
-    excludes_analyse:
-        - vendor/

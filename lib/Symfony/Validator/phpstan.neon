@@ -1,4 +1,0 @@
-parameters:
-    autoload_files:
-        - vendor/autoload.php
-    ignoreErrors:

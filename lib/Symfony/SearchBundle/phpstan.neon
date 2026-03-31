@@ -1,6 +1,0 @@
-parameters:
-    autoload_files:
-        - vendor/autoload.php
-    excludes_analyse:
-        - %rootDir%/tests/Functional/Application
-    ignoreErrors:
