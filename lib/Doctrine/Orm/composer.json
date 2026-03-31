@@ -22,7 +22,7 @@
     "require": {
         "php": "^8.1",
         "doctrine/orm": "^2.7.3 || ^3.3",
-        "rollerworks/search": ">=2.0.0-BETA1 ^2.0@dev",
+        "rollerworks/search": "^2.0",
         "rollerworks/search-doctrine-dbal": ">=2.0.0-BETA9 ^2.0@dev"
     },
     "require-dev": {
