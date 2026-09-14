@@ -1,0 +1,1 @@
+{"schema":1,"id":350,"category":"refactor","title":"[Core] Deprecate ValueHolder getters","flags":["deprecation"],"authors":["sstok"]}
