@@ -7,6 +7,12 @@ parameters:
 			path: lib/ApiPlatform/Serializer/InvalidSearchConditionNormalizer.php
 
 		-
+			message: '#^Constant NumberFormatter\:\:TYPE_INT32 is not allowed for parameter \#2 \$style of class NumberFormatter constructor\.$#'
+			identifier: argument.invalidConstant
+			count: 1
+			path: lib/Core/Extension/Core/DataTransformer/LocalizedBirthdayTransformer.php
+
+		-
 			message: '#^Call to function method_exists\(\) with Symfony\\Component\\OptionsResolver\\OptionsResolver and ''setOptions'' will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -263,15 +269,3 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: lib/Symfony/SearchBundle/Tests/Functional/ApiPlatformTest.php
-
-		-
-			message: '#^Property Rollerworks\\Component\\Search\\Extension\\Symfony\\Validator\\InputValidator\:\:\$errorList is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: lib/Symfony/Validator/InputValidator.php
-
-		-
-			message: '#^Parameter \$min of class Symfony\\Component\\Validator\\Constraints\\Range constructor expects float\|int\|non\-empty\-string\|null, DateTimeImmutable given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Symfony/Validator/Tests/InputValidatorTest.php
