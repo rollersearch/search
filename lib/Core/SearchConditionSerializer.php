@@ -39,39 +39,47 @@ class SearchConditionSerializer
      *
      * Caution: The FieldSet must be loadable from the SearchFactory.
      *
-     * @return array{0: string, 1: string} ['FieldSet-name', 'serialized ValuesGroup object']
+     * @return array{0: string, 1: string, 2: array<string, mixed>} ['FieldSet-name', 'serialized ValuesGroup object', [data-attributes]]
      */
     public function serialize(SearchCondition $searchCondition): array
     {
         $setName = $searchCondition->getFieldSet()->getSetName();
 
-        return [$setName, serialize($searchCondition->getValuesGroup())];
+        return [$setName, serialize($searchCondition->getValuesGroup()), $searchCondition->getAttributes()];
     }
 
     /**
      * Unserialize a serialized SearchCondition.
      *
-     * @param array{0: string, 1: string} $searchCondition [FieldSet-name, serialized ValuesGroup object]
+     * @param array{0: string, 1: string, 2?: array<string, mixed>} $searchCondition [FieldSet-name, serialized ValuesGroup object, [?data-attributes]]
      *
      * @throws InvalidArgumentException when serialized SearchCondition is invalid
      *                                  (invalid structure or failed to unserialize)
      */
     public function unserialize(array $searchCondition): SearchCondition
     {
-        if (\count($searchCondition) !== 2 || ! isset($searchCondition[0], $searchCondition[1])) {
-            throw new InvalidArgumentException(
-                'Serialized search condition must be exactly two values ["FieldSet-name", "serialized ValuesGroup"].'
-            );
+        if (! array_is_list($searchCondition) || \count($searchCondition) < 2 || ! isset($searchCondition[0], $searchCondition[1])) {
+            throw new InvalidArgumentException('Serialized search condition must be a numeric-array with at least keys [0, 1].');
         }
 
         $fieldSet = $this->searchFactory->createFieldSet($searchCondition[0]);
+
+        if (isset($searchCondition[2]) && ! \is_array($searchCondition[2])) {
+            throw new InvalidArgumentException(\sprintf('Serialized search condition index "2" is expected to be an "array" got "%s".', get_debug_type($searchCondition[2])));
+        }
 
         set_error_handler(static function (int $errNo, string $errstr, string $errFile, int $errLine): void {
             throw new InvalidArgumentException('Unable to unserialize invalid value.', $errNo, new \ErrorException($errstr, $errNo, $errNo, $errFile, $errLine));
         });
 
         try {
-            return new SearchCondition($fieldSet, unserialize($searchCondition[1], ['allowed_classes' => true]));
+            $condition = new SearchCondition($fieldSet, unserialize($searchCondition[1], ['allowed_classes' => true]));
+
+            foreach ($searchCondition[2] ?? [] as $key => $value) {
+                $condition->setAttribute($key, $value);
+            }
+
+            return $condition;
         } finally {
             restore_error_handler();
         }
