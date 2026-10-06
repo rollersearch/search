@@ -9,6 +9,14 @@ UPGRADE FROM 2.0 to 2.1
  * Not implementing the `initialize()` method in a `Rollerworks\Component\Search\Input\Validator`
    implementation class is deprecated and will be required in v3.0.
 
+### Symfony Bundle
+
+ * The `rollerworks_search.validator` service class has been replaced with the
+  `Rollerworks\Component\Search\Input\Validator\ChainValidator`.
+
+  Tag a input-validator service as `rollerworks_search.input_validator` to add
+  it to the chain of validators.
+
 UPGRADE FROM 2.0-BETA13 to 2.0-BETA14
 =====================================
 

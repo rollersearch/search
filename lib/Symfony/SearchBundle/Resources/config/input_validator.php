@@ -16,11 +16,19 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Rollerworks\Component\Search\Extension\Core\Type\SearchFieldType;
 use Rollerworks\Component\Search\Extension\Symfony\Validator\InputValidator;
 use Rollerworks\Component\Search\Extension\Symfony\Validator\Type\FieldTypeValidatorExtension;
+use Rollerworks\Component\Search\Input\Validator\ChainValidator;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services();
 
-    $services->set('rollerworks_search.validator', InputValidator::class)
+    $services->set('rollerworks_search.validator', ChainValidator::class)
+        ->args([
+            tagged_iterator('rollerworks_search.input_validator'),
+        ])
+    ;
+
+    $services->set('rollerworks_search.validator.constraint', InputValidator::class)
+        ->tag('rollerworks_search.input_validator')
         ->args([service('validator')])
     ;
 
