@@ -31,6 +31,5 @@ class ChoiceView
         public string $value,
         public string $label,
         public array $attr = [],
-    ) {
-    }
+    ) {}
 }

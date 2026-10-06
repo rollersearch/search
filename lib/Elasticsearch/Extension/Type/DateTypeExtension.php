@@ -23,8 +23,7 @@ class DateTypeExtension extends AbstractFieldTypeExtension
 {
     public function __construct(
         private readonly DateConversion $conversion = new DateConversion(),
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

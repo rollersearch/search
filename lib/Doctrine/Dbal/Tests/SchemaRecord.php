@@ -26,8 +26,7 @@ final class SchemaRecord
     public function __construct(
         private readonly string $table,
         private readonly array $columns,
-    ) {
-    }
+    ) {}
 
     /**
      * @param string                $tableName Fully qualified table-name

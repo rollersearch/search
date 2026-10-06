@@ -202,7 +202,5 @@ class DatabasePlatformMock extends AbstractPlatform
         return 'mock';
     }
 
-    protected function initializeDoctrineTypeMappings(): void
-    {
-    }
+    protected function initializeDoctrineTypeMappings(): void {}
 }

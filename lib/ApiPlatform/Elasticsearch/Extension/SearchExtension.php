@@ -40,8 +40,7 @@ class SearchExtension implements QueryCollectionExtensionInterface
         private readonly ManagerRegistry $registry,
         private readonly ElasticsearchFactory $elasticsearchFactory,
         private readonly Client $client,
-    ) {
-    }
+    ) {}
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?Operation $operation = null, array $context = []): void
     {

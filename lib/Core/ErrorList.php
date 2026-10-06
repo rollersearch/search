@@ -18,6 +18,4 @@ namespace Rollerworks\Component\Search;
  *
  * @extends \ArrayObject<string|int, ConditionErrorMessage>
  */
-final class ErrorList extends \ArrayObject
-{
-}
+final class ErrorList extends \ArrayObject {}

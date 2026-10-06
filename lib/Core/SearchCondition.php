@@ -37,8 +37,7 @@ class SearchCondition
     public function __construct(
         private readonly FieldSet $fieldSet,
         private readonly ValuesGroup $values,
-    ) {
-    }
+    ) {}
 
     public function getFieldSet(): FieldSet
     {

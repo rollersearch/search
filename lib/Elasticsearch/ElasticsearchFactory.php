@@ -22,8 +22,7 @@ class ElasticsearchFactory
     public function __construct(
         private readonly ?Cache $cacheDriver = null,
         private readonly ?ParameterBag $parameterBag = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Creates a new QueryConditionGenerator for the SearchCondition.

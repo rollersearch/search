@@ -24,8 +24,7 @@ class DateTimeTypeExtension extends AbstractFieldTypeExtension
     public function __construct(
         private readonly DateTimeConversion $conversion = new DateTimeConversion(
         ),
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

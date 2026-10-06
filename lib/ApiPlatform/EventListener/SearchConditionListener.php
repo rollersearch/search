@@ -50,8 +50,7 @@ final class SearchConditionListener
         private readonly ResourceMetadataCollectionFactoryInterface $resourceMetadataCollectionFactory,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ?CacheInterface $cache = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Listener callback.

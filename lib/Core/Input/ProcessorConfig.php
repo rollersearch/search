@@ -35,8 +35,7 @@ class ProcessorConfig
 
     public function __construct(
         private readonly FieldSet $fieldSet,
-    ) {
-    }
+    ) {}
 
     public function getFieldSet(): FieldSet
     {

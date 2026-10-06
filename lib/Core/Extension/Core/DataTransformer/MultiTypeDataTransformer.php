@@ -31,8 +31,7 @@ final class MultiTypeDataTransformer implements DataTransformer
      */
     public function __construct(
         private readonly array $transformers,
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): mixed
     {

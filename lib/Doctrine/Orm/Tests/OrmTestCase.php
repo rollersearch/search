@@ -137,9 +137,7 @@ abstract class OrmTestCase extends DbalTestCase
     /**
      * Configure fields of the ConditionGenerator.
      */
-    protected function configureConditionGenerator(FieldConfigBuilder $conditionGenerator): void
-    {
-    }
+    protected function configureConditionGenerator(FieldConfigBuilder $conditionGenerator): void {}
 
     /**
      * @param (int|string)[] $ids

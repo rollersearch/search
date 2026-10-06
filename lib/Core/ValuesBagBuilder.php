@@ -22,8 +22,7 @@ class ValuesBagBuilder extends ValuesBag
 {
     public function __construct(
         private readonly SearchConditionBuilder $parent,
-    ) {
-    }
+    ) {}
 
     public function end(): SearchConditionBuilder
     {

@@ -33,8 +33,7 @@ abstract class AbstractCachedConditionGenerator
         protected Cache $cacheDriver,
         protected SearchCondition $searchCondition,
         protected \DateInterval | int | null $cacheLifeTime = null,
-    ) {
-    }
+    ) {}
 
     public function getSearchCondition(): SearchCondition
     {

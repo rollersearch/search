@@ -16,6 +16,4 @@ namespace Rollerworks\Component\Search\Exception;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-class InvalidConfigurationException extends InvalidArgumentException
-{
-}
+class InvalidConfigurationException extends InvalidArgumentException {}

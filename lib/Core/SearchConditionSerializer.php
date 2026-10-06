@@ -27,8 +27,7 @@ class SearchConditionSerializer
 {
     public function __construct(
         private readonly SearchFactory $searchFactory,
-    ) {
-    }
+    ) {}
 
     /**
      * Serialize a SearchCondition.

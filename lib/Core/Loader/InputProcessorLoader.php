@@ -36,8 +36,7 @@ final class InputProcessorLoader
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly array $serviceIds,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new InputProcessorLoader with the build-in InputProcessors loadable.

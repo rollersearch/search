@@ -29,8 +29,7 @@ final readonly class PreloadedExtension implements SearchExtension
     public function __construct(
         private array $types,
         private array $typeExtensions = [],
-    ) {
-    }
+    ) {}
 
     public function getType(string $name): FieldType
     {

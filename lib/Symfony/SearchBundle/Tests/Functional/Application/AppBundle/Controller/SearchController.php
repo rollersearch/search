@@ -30,8 +30,7 @@ final class SearchController
         private readonly SearchFactory $searchFactory,
         private readonly InputProcessorLoader $inputProcessorLoader,
         private readonly UrlGeneratorInterface $urlGenerator,
-    ) {
-    }
+    ) {}
 
     public function __invoke(Request $request)
     {

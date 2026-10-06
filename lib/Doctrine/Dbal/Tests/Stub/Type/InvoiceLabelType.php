@@ -15,6 +15,4 @@ namespace Rollerworks\Component\Search\Tests\Doctrine\Dbal\Stub\Type;
 
 use Rollerworks\Component\Search\Field\AbstractFieldType;
 
-final class InvoiceLabelType extends AbstractFieldType
-{
-}
+final class InvoiceLabelType extends AbstractFieldType {}

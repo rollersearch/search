@@ -27,8 +27,7 @@ final class FieldConfigurationSet
 
     public function __construct(
         private readonly FieldSet $fieldSet,
-    ) {
-    }
+    ) {}
 
     public function setField(string $mappingName, string $column, ?string $alias = null, string $type = 'string'): void
     {

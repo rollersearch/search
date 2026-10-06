@@ -16,6 +16,4 @@ namespace Rollerworks\Component\Search\Exception;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-class InvalidArgumentException extends \InvalidArgumentException implements SearchException
-{
-}
+class InvalidArgumentException extends \InvalidArgumentException implements SearchException {}

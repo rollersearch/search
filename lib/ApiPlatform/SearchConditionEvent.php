@@ -33,8 +33,7 @@ final class SearchConditionEvent extends Event
         private readonly ?SearchCondition $searchCondition,
         private readonly string $resourceClass,
         private readonly Request $request,
-    ) {
-    }
+    ) {}
 
     public function getSearchCondition(): ?SearchCondition
     {

@@ -26,8 +26,7 @@ final class BirthdayTransformer implements DataTransformer
         private readonly DataTransformer $transformer,
         private readonly bool $allowAge = true,
         private readonly bool $allowFutureDate = false,
-    ) {
-    }
+    ) {}
 
     public function transform($value)
     {

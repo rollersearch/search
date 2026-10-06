@@ -16,6 +16,4 @@ namespace Rollerworks\Component\Search\Exception;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-interface SearchException
-{
-}
+interface SearchException {}

@@ -50,8 +50,7 @@ final class FieldTransformationAssertion
 
     private function __construct(
         private readonly FieldConfig $field,
-    ) {
-    }
+    ) {}
 
     public static function assertThat(FieldConfig $field): self
     {

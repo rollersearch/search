@@ -26,8 +26,7 @@ final class ChoiceToLabelTransformer implements DataTransformer
     public function __construct(
         private readonly ChoiceList $choiceList,
         private readonly ChoiceListView $choiceListView,
-    ) {
-    }
+    ) {}
 
     public function transform($choice)
     {

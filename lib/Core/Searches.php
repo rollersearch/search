@@ -134,7 +134,5 @@ final class Searches
     /**
      * This class cannot be instantiated.
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 }

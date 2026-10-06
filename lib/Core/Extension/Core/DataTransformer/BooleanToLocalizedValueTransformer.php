@@ -27,8 +27,7 @@ final class BooleanToLocalizedValueTransformer implements DataTransformer
         private readonly string $falseLabel = 'no',
         private readonly array $trueValues = ['true', '1', 1, 'on', 'yes'],
         private readonly array $falseValues = ['false', '0', 0, 'off', 'no'],
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): mixed
     {

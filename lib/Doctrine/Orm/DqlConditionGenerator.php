@@ -48,8 +48,7 @@ final class DqlConditionGenerator
         private readonly EntityManagerInterface $entityManager,
         private readonly SearchCondition $searchCondition,
         private readonly FieldConfigBuilder $fieldsConfig,
-    ) {
-    }
+    ) {}
 
     public function getWhereClause(): string
     {

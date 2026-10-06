@@ -34,8 +34,7 @@ final class SearchExtension implements QueryCollectionExtensionInterface
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly DoctrineOrmFactory $ormFactory,
-    ) {
-    }
+    ) {}
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?Operation $operation = null, array $context = []): void
     {

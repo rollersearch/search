@@ -621,8 +621,7 @@ abstract class InputProcessorTestCase extends SearchIntegrationTestCase
             new class($alwaysFailTransformer) extends AbstractFieldTypeExtension {
                 public function __construct(
                     private readonly DataTransformer $transformer,
-                ) {
-                }
+                ) {}
 
                 public function buildType(FieldConfig $builder, array $options): void
                 {

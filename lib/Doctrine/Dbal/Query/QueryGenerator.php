@@ -45,8 +45,7 @@ final class QueryGenerator
         private readonly Connection $connection,
         private readonly AbstractQueryPlatform $queryPlatform,
         private readonly array $fields,
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, array<string, QueryField>> $fields

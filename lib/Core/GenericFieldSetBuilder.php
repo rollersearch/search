@@ -31,8 +31,7 @@ final class GenericFieldSetBuilder implements FieldSetBuilder
 
     public function __construct(
         private readonly SearchFactory $searchFactory,
-    ) {
-    }
+    ) {}
 
     public function set(FieldConfig $field): self
     {

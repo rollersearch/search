@@ -30,8 +30,7 @@ final class OrderTransformer implements DataTransformer
     public function __construct(
         private array $alias,
         private readonly string $case = self::CASE_UPPERCASE,
-    ) {
-    }
+    ) {}
 
     public function transform($value)
     {

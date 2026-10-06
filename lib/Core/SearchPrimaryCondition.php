@@ -31,8 +31,7 @@ final class SearchPrimaryCondition
 
     public function __construct(
         private readonly ValuesGroup $values,
-    ) {
-    }
+    ) {}
 
     public function getValuesGroup(): ValuesGroup
     {

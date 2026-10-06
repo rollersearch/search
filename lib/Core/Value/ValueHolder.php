@@ -21,6 +21,4 @@ namespace Rollerworks\Component\Search\Value;
  * Do not use this interface directly for any custom implementations
  * as this is not supported.
  */
-interface ValueHolder
-{
-}
+interface ValueHolder {}

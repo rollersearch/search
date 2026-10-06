@@ -37,8 +37,7 @@ class CachedConditionGenerator implements ConditionGenerator
         private readonly ConditionGenerator $conditionGenerator,
         private readonly Cache $cacheDriver,
         private \DateInterval | int | null $ttl = 0,
-    ) {
-    }
+    ) {}
 
     public function registerField(string $fieldName, string $mapping, array $conditions = [], array $options = [])
     {

@@ -26,8 +26,7 @@ final class OrderToLocalizedTransformer implements DataTransformer
         private array $alias,
         private array $viewLabel,
         private readonly string $case = OrderTransformer::CASE_UPPERCASE,
-    ) {
-    }
+    ) {}
 
     public function transform($value)
     {

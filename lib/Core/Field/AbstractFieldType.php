@@ -28,17 +28,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractFieldType implements FieldType
 {
-    public function buildType(FieldConfig $config, array $options): void
-    {
-    }
+    public function buildType(FieldConfig $config, array $options): void {}
 
-    public function buildView(SearchFieldView $view, FieldConfig $config, array $options): void
-    {
-    }
+    public function buildView(SearchFieldView $view, FieldConfig $config, array $options): void {}
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-    }
+    public function configureOptions(OptionsResolver $resolver): void {}
 
     public function getParent(): ?string
     {

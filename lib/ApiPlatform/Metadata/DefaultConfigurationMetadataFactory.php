@@ -28,8 +28,7 @@ final class DefaultConfigurationMetadataFactory implements ResourceMetadataColle
 {
     public function __construct(
         private readonly ResourceMetadataCollectionFactoryInterface $decorated,
-    ) {
-    }
+    ) {}
 
     public function create(string $resourceClass): ResourceMetadataCollection
     {

@@ -32,8 +32,7 @@ final class CachingFactoryDecorator implements ChoiceListFactory
 
     public function __construct(
         private readonly ChoiceListFactory $decoratedFactory,
-    ) {
-    }
+    ) {}
 
     public function getDecoratedFactory(): ChoiceListFactory
     {

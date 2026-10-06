@@ -33,8 +33,7 @@ final class ClosureContainer implements ContainerInterface
      */
     public function __construct(
         private array $factories,
-    ) {
-    }
+    ) {}
 
     public function has(string $id): bool
     {

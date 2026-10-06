@@ -24,8 +24,7 @@ class DoctrineOrmFactory
 {
     public function __construct(
         private readonly ?Cache $cacheDriver = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Creates a new ConditionGenerator for the SearchCondition.

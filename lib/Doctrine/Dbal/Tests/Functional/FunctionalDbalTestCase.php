@@ -167,9 +167,7 @@ abstract class FunctionalDbalTestCase extends DbalTestCase
     /**
      * Configure fields of the ConditionGenerator.
      */
-    protected function configureConditionGenerator(ConditionGenerator $conditionGenerator): void
-    {
-    }
+    protected function configureConditionGenerator(ConditionGenerator $conditionGenerator): void {}
 
     /**
      * @param (int|string)[] $ids

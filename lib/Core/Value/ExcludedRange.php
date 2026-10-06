@@ -16,6 +16,4 @@ namespace Rollerworks\Component\Search\Value;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-final class ExcludedRange extends Range
-{
-}
+final class ExcludedRange extends Range {}

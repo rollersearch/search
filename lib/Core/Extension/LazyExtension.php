@@ -33,8 +33,7 @@ final class LazyExtension implements SearchExtension
     public function __construct(
         private readonly ContainerInterface $typeContainer,
         private array $typeExtensionServices,
-    ) {
-    }
+    ) {}
 
     /**
      * Creates a new LazyExtension with easy factories for lazy loading.

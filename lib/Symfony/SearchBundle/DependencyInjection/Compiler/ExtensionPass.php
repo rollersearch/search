@@ -38,8 +38,7 @@ final class ExtensionPass implements CompilerPassInterface
         private string $fieldExtensionService = 'rollerworks_search.extension',
         private string $fieldTypeTag = 'rollerworks_search.type',
         private string $fieldTypeExtensionTag = 'rollerworks_search.type_extension',
-    ) {
-    }
+    ) {}
 
     public function process(ContainerBuilder $container): void
     {

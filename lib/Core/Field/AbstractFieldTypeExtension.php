@@ -25,15 +25,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class AbstractFieldTypeExtension implements FieldTypeExtension
 {
-    public function buildType(FieldConfig $builder, array $options): void
-    {
-    }
+    public function buildType(FieldConfig $builder, array $options): void {}
 
-    public function buildView(FieldConfig $config, SearchFieldView $view): void
-    {
-    }
+    public function buildView(FieldConfig $config, SearchFieldView $view): void {}
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-    }
+    public function configureOptions(OptionsResolver $resolver): void {}
 }

@@ -96,9 +96,7 @@ final class OrderFieldType implements FieldType
         $config->setViewTransformer(new OrderToLocalizedTransformer($options['alias'], $options['view_label'], $options['case']));
     }
 
-    public function buildView(SearchFieldView $view, FieldConfig $config, array $options): void
-    {
-    }
+    public function buildView(SearchFieldView $view, FieldConfig $config, array $options): void {}
 
     public function getBlockPrefix(): string
     {

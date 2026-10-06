@@ -31,8 +31,7 @@ final class MoneyTypeExtension extends AbstractFieldTypeExtension
 {
     public function __construct(
         private readonly MoneyValueConversion $conversion = new MoneyValueConversion(),
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

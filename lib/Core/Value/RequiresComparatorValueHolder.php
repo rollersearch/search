@@ -17,6 +17,4 @@ namespace Rollerworks\Component\Search\Value;
  * RequiresComparatorValueHolder indicates the value-holder
  * requires a comparator in the field's type.
  */
-interface RequiresComparatorValueHolder extends ValueHolder
-{
-}
+interface RequiresComparatorValueHolder extends ValueHolder {}

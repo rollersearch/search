@@ -38,8 +38,7 @@ class ConversionHints
 
     public function __construct(
         private readonly AbstractQueryPlatform $queryPlatform,
-    ) {
-    }
+    ) {}
 
     /**
      * Returns a parameter-name to reference a value.

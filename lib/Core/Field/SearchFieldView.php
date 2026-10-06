@@ -31,6 +31,5 @@ class SearchFieldView
 
     public function __construct(
         public FieldSetView $fieldSet,
-    ) {
-    }
+    ) {}
 }

@@ -948,8 +948,7 @@ final class DefaultChoiceListFactoryTest_Castable implements \Stringable
 {
     public function __construct(
         private mixed $property,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {

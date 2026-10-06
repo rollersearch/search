@@ -31,8 +31,7 @@ final class FieldConfigBuilder
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly FieldSet $fieldSet,
-    ) {
-    }
+    ) {}
 
     public function setDefaultEntity(string $entity, string $alias): void
     {

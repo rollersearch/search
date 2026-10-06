@@ -42,8 +42,7 @@ final class LazyFieldSetRegistry implements FieldSetRegistry
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly array $serviceIds,
-    ) {
-    }
+    ) {}
 
     /**
      * Creates a new LazyFieldSetRegistry with easy factories for loading.

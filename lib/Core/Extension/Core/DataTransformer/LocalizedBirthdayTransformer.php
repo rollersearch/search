@@ -26,8 +26,7 @@ final class LocalizedBirthdayTransformer implements DataTransformer
         private readonly DataTransformer $dateTransformer,
         private readonly bool $allowAge = true,
         private readonly bool $allowFutureDate = false,
-    ) {
-    }
+    ) {}
 
     public function transform($value)
     {

@@ -21,8 +21,7 @@ final class BooleanToNormValueTransformer implements DataTransformer
     public function __construct(
         private readonly string $trueValue = 'true',
         private readonly string $falseValue = 'false',
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): mixed
     {

@@ -25,8 +25,7 @@ final class TranslatedArgument implements TranslatableInterface, \Stringable
         private readonly string $message,
         private readonly array $parameters = [],
         private readonly ?string $domain = null,
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {

@@ -24,8 +24,7 @@ final class SqlLogger extends AbstractLogger
 {
     public function __construct(
         private readonly QueryLog $queryLog,
-    ) {
-    }
+    ) {}
 
     public function log($level, $message, array $context = []): void
     {

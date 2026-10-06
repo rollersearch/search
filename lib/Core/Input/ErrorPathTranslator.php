@@ -36,8 +36,7 @@ class ErrorPathTranslator
 {
     public function __construct(
         protected TranslatorInterface $translator,
-    ) {
-    }
+    ) {}
 
     public function translateFromQueryString(string $path): string
     {

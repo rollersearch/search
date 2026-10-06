@@ -27,6 +27,5 @@ class MoneyValue
     public function __construct(
         public readonly Money $value,
         public readonly bool $withCurrency = true,
-    ) {
-    }
+    ) {}
 }

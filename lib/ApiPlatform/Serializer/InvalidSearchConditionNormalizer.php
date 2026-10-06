@@ -36,8 +36,7 @@ final class InvalidSearchConditionNormalizer implements NormalizerInterface
     public function __construct(
         private readonly ?array $serializePayloadFields = null,
         private readonly ?NameConverterInterface $nameConverter = null,
-    ) {
-    }
+    ) {}
 
     /**
      * @return array{type: string, title: string, detail: string, violations: array<array{propertyPath: string, message: string, payload?: array<string, mixed>}>}

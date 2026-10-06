@@ -24,8 +24,7 @@ final class ChoiceToValueTransformer implements DataTransformer
 {
     public function __construct(
         private readonly ChoiceList $choiceList,
-    ) {
-    }
+    ) {}
 
     public function transform(mixed $value): mixed
     {

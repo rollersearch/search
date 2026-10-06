@@ -23,8 +23,7 @@ class Range implements RequiresComparatorValueHolder
         public readonly mixed $upper,
         public readonly bool $inclusiveLower = true,
         public readonly bool $inclusiveUpper = true,
-    ) {
-    }
+    ) {}
 
     /**
      * @deprecated Since RollerworksSearch 2.1 use the property $lower

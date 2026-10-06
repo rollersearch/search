@@ -13,6 +13,4 @@ declare(strict_types=1);
 
 namespace Rollerworks\Component\Search\Doctrine\Dbal\QueryPlatform;
 
-final class SqlQueryPlatform extends AbstractQueryPlatform
-{
-}
+final class SqlQueryPlatform extends AbstractQueryPlatform {}

@@ -35,8 +35,7 @@ final class ConditionExporterLoader
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly array $serviceIds,
-    ) {
-    }
+    ) {}
 
     /**
      * Create a new ConditionExporterLoader with the build-in

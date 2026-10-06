@@ -23,8 +23,7 @@ class BirthdayTypeExtension extends AbstractFieldTypeExtension
 {
     public function __construct(
         private readonly DateConversion $conversion,
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {
