@@ -35,6 +35,10 @@ abstract class AbstractInput implements InputProcessor
     public function __construct(?Validator $validator = null)
     {
         $this->validator = $validator ?? new NullValidator();
+
+        if ($validator && ! method_exists($validator, 'initialize')) {
+            trigger_deprecation('rollerworks/search', '2.1', 'For "%s" class not implementing the initialize() public method is deprecated and will be required in v3.0.', $validator::class);
+        }
     }
 
     /**

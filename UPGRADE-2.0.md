@@ -6,6 +6,9 @@ UPGRADE FROM 2.0 to 2.1
  * The `ValueHolder` getters are deprecated, access their public properties directly instead.
    The `ValueHolder` getters will be removed in v3.0.
 
+ * Not implementing the `initialize()` method in a `Rollerworks\Component\Search\Input\Validator`
+   implementation class is deprecated and will be required in v3.0.
+
 UPGRADE FROM 2.0-BETA13 to 2.0-BETA14
 =====================================
 
