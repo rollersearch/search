@@ -1,0 +1,7 @@
+---------------------------------------------------------------------------
+
+by sstok at 2026-10-26T11:11:11Z
+
+PHPStan errors are unrelated, PHPUnit 10 uses a custom psalm-type that is not defined.
+But considering PHPUnit 10 is EOL I don't expect any fixes.
+
