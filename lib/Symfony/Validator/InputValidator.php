@@ -16,6 +16,7 @@ namespace Rollerworks\Component\Search\Extension\Symfony\Validator;
 use Rollerworks\Component\Search\ConditionErrorMessage;
 use Rollerworks\Component\Search\ErrorList;
 use Rollerworks\Component\Search\Field\FieldConfig;
+use Rollerworks\Component\Search\Input\ProcessorConfig;
 use Rollerworks\Component\Search\Input\Validator;
 use Rollerworks\Component\Search\Value\PatternMatch;
 use Symfony\Component\Validator\Constraint;
@@ -42,6 +43,11 @@ final class InputValidator implements Validator
     public function __construct(
         private readonly ValidatorInterface $validator,
     ) {}
+
+    public function initialize(ProcessorConfig $config): void
+    {
+        // no-op
+    }
 
     public function initializeContext(FieldConfig $field, ErrorList $errorList): void
     {

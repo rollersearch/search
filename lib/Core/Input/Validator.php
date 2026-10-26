@@ -19,11 +19,13 @@ use Rollerworks\Component\Search\Field\FieldConfig;
 /**
  * The Validator validates field values.
  *
- * The validator is first initialized with the FieldConfig using the
- * `initializeConfig()` method (when present).
+ * The validator is first initialized with the {@see ProcessorConfig}
+ * using the `initialize()` method (when present).
  *
- * For each field the validator is then initialized with `initializeContext()`.
- * Then for each value in the current field the `validate()` method is called.
+ * Note: Not implementing the public `initialize()` method is deprecated and will be required in v3.0.
+ *
+ * For each field (current) the validator is initialized with `initializeContext()`,
+ * then for each value in the current field the `validate()` method is called.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  *

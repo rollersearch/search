@@ -18,6 +18,11 @@ use Rollerworks\Component\Search\Field\FieldConfig;
 
 final class NullValidator implements Validator
 {
+    public function initialize(ProcessorConfig $config): void
+    {
+        // no-op
+    }
+
     public function initializeContext(FieldConfig $field, ErrorList $errorList): void
     {
         // no-op
