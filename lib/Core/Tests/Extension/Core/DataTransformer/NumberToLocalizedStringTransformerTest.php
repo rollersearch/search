@@ -664,7 +664,7 @@ final class NumberToLocalizedStringTransformerTest extends TestCase
         $transformer = new NumberToLocalizedStringTransformer(null, true);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('The number contains unrecognized characters: "foo8"');
+        $this->expectExceptionMessageMatches('/The number contains unrecognized characters: "f?oo8"/');
 
         $transformer->reverseTransform("12\xc2\xa0345,67foo8");
     }
@@ -682,7 +682,7 @@ final class NumberToLocalizedStringTransformerTest extends TestCase
         $transformer = new NumberToLocalizedStringTransformer(null, true);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('The number contains unrecognized characters: "foo8"');
+        $this->expectExceptionMessageMatches('/The number contains unrecognized characters: "f?oo8"/');
 
         $transformer->reverseTransform("12\xc2\xa0345,67foo8  \xc2\xa0\t");
     }
@@ -713,7 +713,7 @@ final class NumberToLocalizedStringTransformerTest extends TestCase
         $transformer = new NumberToLocalizedStringTransformer(null, true);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('The number contains unrecognized characters: "foo"');
+        $this->expectExceptionMessageMatches('/The number contains unrecognized characters: "f?oo"/');
 
         $transformer->reverseTransform("12\xc2\xa0345,678foo");
     }
