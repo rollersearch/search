@@ -1,0 +1,1 @@
+{"schema":1,"id":355,"category":"bug","title":"[Core] Fix tests failing on newer ICU versions","flags":[],"authors":["sstok"]}
