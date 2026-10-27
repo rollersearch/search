@@ -56,7 +56,8 @@ final class DateType extends BaseDateTimeType
                 $options['format'],
                 \IntlDateFormatter::NONE,
                 \IntlDateFormatter::GREGORIAN,
-                $options['pattern']
+                $options['pattern'],
+                $options['locale'],
             )
         );
 
@@ -67,7 +68,8 @@ final class DateType extends BaseDateTimeType
                 $options['format'],
                 \IntlDateFormatter::NONE,
                 \IntlDateFormatter::GREGORIAN,
-                self::HTML5_FORMAT
+                self::HTML5_FORMAT,
+                'en_US'
             )
         );
     }
@@ -78,7 +80,7 @@ final class DateType extends BaseDateTimeType
 
         if ($pattern === null) {
             $pattern = \IntlDateFormatter::create(
-                \Locale::getDefault(),
+                $options['locale'],
                 $options['format'],
                 \IntlDateFormatter::NONE,
                 $options['view_timezone'],
@@ -95,6 +97,7 @@ final class DateType extends BaseDateTimeType
     {
         $resolver->setDefaults(
             [
+                'locale' => \Locale::getDefault(),
                 'model_timezone' => null,
                 'view_timezone' => null,
                 'pattern' => null,
@@ -103,8 +106,12 @@ final class DateType extends BaseDateTimeType
             ]
         );
 
-        $resolver->setAllowedTypes('format', ['int']);
+        $resolver->setAllowedTypes('locale', ['string']);
+        $resolver->setAllowedTypes('model_timezone', ['string', 'null']);
+        $resolver->setAllowedTypes('view_timezone', ['string', 'null']);
         $resolver->setAllowedTypes('pattern', ['string', 'null']);
+        $resolver->setAllowedTypes('format', ['int']);
+        $resolver->setAllowedTypes('html5', 'bool');
     }
 
     public function getBlockPrefix(): string

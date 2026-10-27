@@ -74,6 +74,9 @@ class NumberToLocalizedStringTransformer implements DataTransformer
      */
     public const ROUND_HALF_DOWN = \NumberFormatter::ROUND_HALFDOWN;
 
+    protected readonly string $locale;
+    protected readonly \NumberFormatter $formatter;
+
     /**
      * @param self::ROUND_* $roundingMode
      */
@@ -81,7 +84,7 @@ class NumberToLocalizedStringTransformer implements DataTransformer
         private readonly ?int $scale = null,
         protected ?bool $grouping = false,
         protected ?int $roundingMode = self::ROUND_HALF_UP,
-        protected readonly ?string $locale = null,
+        ?string $locale = null,
     ) {
         if ($grouping === null) {
             trigger_deprecation('rollerworks/search', '2.0-BETA13', 'Passing null as 2nd argument to "%s()" is deprecated, pass false instead. This will fail 3.0', __CLASS__);
@@ -94,6 +97,9 @@ class NumberToLocalizedStringTransformer implements DataTransformer
 
             $this->roundingMode = self::ROUND_HALF_UP;
         }
+
+        $this->locale = $locale ?? \Locale::getDefault();
+        $this->formatter = $this->getNumberFormatter();
     }
 
     /**
@@ -211,11 +217,11 @@ class NumberToLocalizedStringTransformer implements DataTransformer
     }
 
     /**
-     * Returns a preconfigured \NumberFormatter instance.
+     * @internal Calling this method direct is deprecated and will not be supported anymore in v3.0, use the $formatter property instead.
      */
     protected function getNumberFormatter(): \NumberFormatter
     {
-        $formatter = new \NumberFormatter($this->locale ?? \Locale::getDefault(), \NumberFormatter::DECIMAL);
+        $formatter = new \NumberFormatter($this->locale, \NumberFormatter::DECIMAL);
 
         if ($this->scale !== null) {
             $formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $this->scale);

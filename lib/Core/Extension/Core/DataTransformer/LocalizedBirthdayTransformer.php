@@ -22,24 +22,29 @@ use Rollerworks\Component\Search\Exception\TransformationFailedException;
  */
 final class LocalizedBirthdayTransformer implements DataTransformer
 {
+    private readonly \NumberFormatter $numberFormatter;
+
     public function __construct(
         private readonly DataTransformer $dateTransformer,
         private readonly bool $allowAge = true,
         private readonly bool $allowFutureDate = false,
-    ) {}
+        ?string $locale = null,
+    ) {
+        $this->numberFormatter = new \NumberFormatter($locale ?? \Locale::getDefault(), \NumberFormatter::TYPE_INT32);
+        $this->numberFormatter->setAttribute(\NumberFormatter::GROUPING_USED, 0);
+    }
 
-    public function transform($value)
+    public function transform(mixed $value): mixed
     {
         if (\is_int($value)) {
             if (! $this->allowAge) {
                 throw new TransformationFailedException('Age support is not enabled.');
             }
 
-            $formatter = $this->getNumberFormatter();
-            $result = $formatter->format($value);
+            $result = $this->numberFormatter->format($value);
 
-            if (intl_is_failure($formatter->getErrorCode())) {
-                throw new TransformationFailedException($formatter->getErrorMessage());
+            if (intl_is_failure($this->numberFormatter->getErrorCode())) {
+                throw new TransformationFailedException($this->numberFormatter->getErrorMessage());
             }
 
             return $result;
@@ -49,12 +54,14 @@ final class LocalizedBirthdayTransformer implements DataTransformer
     }
 
     /**
-     * @param int|string $value
-     *
      * @return \DateTimeImmutable|int
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value)
     {
+        if (! \is_string($value)) {
+            throw new TransformationFailedException('Expected a string.');
+        }
+
         $value = $this->transformWhenInteger($value);
 
         if (\is_int($value)) {
@@ -78,25 +85,23 @@ final class LocalizedBirthdayTransformer implements DataTransformer
         return $value;
     }
 
-    private function transformWhenInteger($value)
+    private function transformWhenInteger(string $value): int | string
     {
-        if (! preg_match('/^\p{N}+$/u', (string) $value)) {
+        if (! preg_match('/^\p{N}+$/u', $value)) {
             return $value;
         }
 
-        $position = 0;
-        $formatter = $this->getNumberFormatter();
-        $result = $formatter->parse($value, \NumberFormatter::TYPE_INT32, $position);
+        $result = $this->numberFormatter->parse($value, \NumberFormatter::TYPE_INT32);
 
-        if (intl_is_failure($formatter->getErrorCode())) {
-            throw new TransformationFailedException($formatter->getErrorMessage());
+        if (intl_is_failure($this->numberFormatter->getErrorCode())) {
+            throw new TransformationFailedException($this->numberFormatter->getErrorMessage());
         }
 
         if ($result >= \PHP_INT_MAX || $result <= -\PHP_INT_MAX) {
             throw new TransformationFailedException('I don\'t have a clear idea what infinity looks like.');
         }
 
-        return $result;
+        return (int) $result;
     }
 
     private function validateDate(\DateTimeImmutable $value): void
@@ -117,18 +122,5 @@ final class LocalizedBirthdayTransformer implements DataTransformer
                 )
             );
         }
-    }
-
-    private function getNumberFormatter(): \NumberFormatter
-    {
-        /** @var \NumberFormatter $formatter */
-        static $formatter;
-
-        if (! $formatter || $formatter->getLocale() !== \Locale::getDefault()) {
-            $formatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::TYPE_INT32);
-            $formatter->setAttribute(\NumberFormatter::GROUPING_USED, 0);
-        }
-
-        return $formatter;
     }
 }

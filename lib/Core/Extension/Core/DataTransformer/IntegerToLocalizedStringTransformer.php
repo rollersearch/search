@@ -27,14 +27,14 @@ final class IntegerToLocalizedStringTransformer extends NumberToLocalizedStringT
      * @param bool          $grouping     Whether thousands should be grouped
      * @param self::ROUND_* $roundingMode One of the ROUND_ constants in this class
      */
-    public function __construct(?bool $grouping = false, ?int $roundingMode = self::ROUND_DOWN)
+    public function __construct(?bool $grouping = false, ?int $roundingMode = self::ROUND_DOWN, ?string $locale = null)
     {
-        parent::__construct(0, $grouping, $roundingMode);
+        parent::__construct(0, $grouping, $roundingMode, $locale);
     }
 
     public function reverseTransform($value): ?int
     {
-        $decimalSeparator = $this->getNumberFormatter()->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+        $decimalSeparator = $this->formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
 
         if (\is_string($value) && mb_strpos($value, $decimalSeparator) !== false) {
             throw new TransformationFailedException(\sprintf('The value "%s" is not a valid integer.', $value));

@@ -29,11 +29,18 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
     /** @var array<string, array<string, array{0: string, 1: string}>> ['locale' => ['currency' => ['pattern', 'symbol']] */
     private static $patterns = [];
 
+    private readonly IntlMoneyFormatter $moneyFormatter;
+    private readonly IntlMoneyParser $moneyParser;
+
     public function __construct(
         private readonly string $defaultCurrency,
         bool $grouping = false,
+        ?string $locale = null,
     ) {
-        parent::__construct(null, $grouping);
+        parent::__construct(null, $grouping, locale: $locale);
+
+        $this->moneyFormatter = new IntlMoneyFormatter($this->formatter, new ISOCurrencies());
+        $this->moneyParser = new IntlMoneyParser($this->formatter, new ISOCurrencies());
     }
 
     /**
@@ -54,7 +61,7 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
             throw new TransformationFailedException('Expected a MoneyValue object.');
         }
 
-        $result = (new IntlMoneyFormatter($this->getNumberFormatter(), new ISOCurrencies()))->format($value->value);
+        $result = $this->moneyFormatter->format($value->value);
 
         // Convert fixed spaces to normal ones
         $result = str_replace(["\xc2\xa0", "\xe2\x80\xaf"], ' ', $result);
@@ -95,10 +102,8 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
         // Convert normal spaces to fixed spaces.
         $value = str_replace(' ', "\xc2\xa0", $value);
 
-        $formatter = $this->getNumberFormatter();
-
-        $groupSep = $formatter->getSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
-        $decSep = $formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+        $groupSep = $this->formatter->getSymbol(\NumberFormatter::GROUPING_SEPARATOR_SYMBOL);
+        $decSep = $this->formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
         $withCurrency = (bool) preg_match('#\p{Sc}#u', $value);
 
         // Some locales use the space as group separation.
@@ -120,9 +125,7 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
         }
 
         try {
-            $money = (new IntlMoneyParser($formatter, new ISOCurrencies()))->parse($value);
-
-            return new MoneyValue($money, $withCurrency);
+            return new MoneyValue($this->moneyParser->parse($value), $withCurrency);
         } catch (\Exception $e) {
             throw new TransformationFailedException($e->getMessage(), 0, $e);
         }
@@ -130,7 +133,7 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
 
     protected function getNumberFormatter(): \NumberFormatter
     {
-        $formatter = new \NumberFormatter(\Locale::getDefault(), \NumberFormatter::CURRENCY);
+        $formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
         $formatter->setAttribute(\NumberFormatter::GROUPING_USED, $this->grouping ? 1 : 0);
 
         return $formatter;
@@ -145,14 +148,13 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
     private function addCurrencySymbol(string $value, ?string $currency = null): string
     {
         $currency ??= $this->defaultCurrency;
-        $locale = \Locale::getDefault();
 
-        if (! isset(self::$patterns[$locale])) {
-            self::$patterns[$locale] = [];
+        if (! isset(self::$patterns[$this->locale])) {
+            self::$patterns[$this->locale] = [];
         }
 
-        if (! isset(self::$patterns[$locale][$currency])) {
-            $formatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
+        if (! isset(self::$patterns[$this->locale][$currency])) {
+            $formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
             $pattern = $formatter->formatCurrency(123.00, $currency);
 
             // 1=left-position currency, 2=left-space, 3=right-space, 4=left-position currency.
@@ -164,17 +166,15 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
             );
 
             if (! empty($matches[1])) {
-                self::$patterns[$locale][$currency] = ['%1$s' . $matches[2] . '%2$s', $matches[1]];
+                self::$patterns[$this->locale][$currency] = ['%1$s' . $matches[2] . '%2$s', $matches[1]];
             } elseif (! empty($matches[4])) {
-                self::$patterns[$locale][$currency] = ['%2$s' . $matches[3] . '%1$s', $matches[4]];
+                self::$patterns[$this->locale][$currency] = ['%2$s' . $matches[3] . '%1$s', $matches[4]];
             } else {
-                throw new \InvalidArgumentException(
-                    \sprintf('Locale "%s" with currency "%s" does not provide a currency position.', $locale, $currency)
-                );
+                throw new \InvalidArgumentException(\sprintf('Locale "%s" with currency "%s" does not provide a currency position.', $this->locale, $currency));
             }
         }
 
-        return \sprintf(self::$patterns[$locale][$currency][0], self::$patterns[$locale][$currency][1], $value);
+        return \sprintf(self::$patterns[$this->locale][$currency][0], self::$patterns[$this->locale][$currency][1], $value);
     }
 
     /**
@@ -186,13 +186,11 @@ final class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTra
      */
     private function removeCurrencySymbol(string $value, string $currency): string
     {
-        $locale = \Locale::getDefault();
-
-        if (! isset(self::$patterns[$locale][$currency])) {
+        if (! isset(self::$patterns[$this->locale][$currency])) {
             // Initialize the cache, ignore return.
             $this->addCurrencySymbol('123', $currency);
         }
 
-        return preg_replace('#(\s?' . preg_quote((string) self::$patterns[$locale][$currency][1], '#') . '\s?)#u', '', $value);
+        return preg_replace('#(\s?' . preg_quote((string) self::$patterns[$this->locale][$currency][1], '#') . '\s?)#u', '', $value);
     }
 }

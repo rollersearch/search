@@ -109,6 +109,13 @@ final class NumberTypeTest extends SearchIntegrationTestCase
             ->successfullyTransformsTo('12345.679')
             ->andReverseTransformsTo('١٢٣٤٥٫٦٧٩', '12345.679')
         ;
+
+        // Ensure local option is honored
+        FieldTransformationAssertion::assertThat($this->getFactory()->createField('number', NumberType::class, ['locale' => 'en']))
+            ->withInput('1.678', '1.678')
+            ->successfullyTransformsTo('1.678')
+            ->andReverseTransformsTo('1.678', '1.678')
+        ;
     }
 
     /**

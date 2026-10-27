@@ -30,7 +30,11 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
 {
     private int $dateFormat;
     private int $timeFormat;
+    private string $locale;
     private int | \IntlCalendar $calendar;
+    private bool $isPatternDateOnly;
+    private \IntlDateFormatter $formatter;
+    private \IntlDateFormatter $parser;
 
     /**
      * @param int    $calendar One of the \IntlDateFormatter calendar constants
@@ -49,6 +53,7 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         ?int $timeFormat = null,
         int | \IntlCalendar $calendar = \IntlDateFormatter::GREGORIAN,
         private readonly ?string $pattern = null,
+        ?string $locale = null,
     ) {
         parent::__construct($inputTimezone, $outputTimezone);
 
@@ -70,6 +75,11 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         $this->dateFormat = $dateFormat;
         $this->timeFormat = $timeFormat;
         $this->calendar = $calendar;
+
+        $this->locale = $locale ?? \Locale::getDefault();
+        $this->isPatternDateOnly = $this->isPatternDateOnly();
+        $this->parser = $this->getIntlDateFormatter(true);
+        $this->formatter = $this->getIntlDateFormatter();
     }
 
     /**
@@ -92,10 +102,10 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
             throw new TransformationFailedException('Expected a \DateTimeImmutable.');
         }
 
-        $value = $this->getIntlDateFormatter()->format($value->getTimestamp());
+        $value = $this->formatter->format($value->getTimestamp());
 
-        if (intl_get_error_code() !== 0) {
-            throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());
+        if ($this->parser->getErrorCode() !== 0) {
+            throw new TransformationFailedException($this->parser->getErrorMessage(), $this->parser->getErrorCode());
         }
 
         // Convert non-breaking and narrow non-breaking spaces to normal ones
@@ -120,23 +130,18 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
             return null;
         }
 
-        // date-only patterns require parsing to be done in UTC, as midnight might not exist in the local timezone due
-        // to DST changes
-        $dateOnly = $this->isPatternDateOnly();
-        $dateFormatter = $this->getIntlDateFormatter($dateOnly, true);
-
         // Non-breaking lines are required instead of spaces.
         // And remove comma's to normalize the input
         $value = str_replace([' ', ','], ["\xe2\x80\xaf", ''], $value);
 
         try {
-            $timestamp = @$dateFormatter->parse($value);
-        } catch (\IntlException $e) {
+            $timestamp = $this->parser->parse($value);
+        } catch (\Throwable $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
 
-        if (intl_get_error_code() != 0) {
-            throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());
+        if ($this->parser->getErrorCode() !== 0) {
+            throw new TransformationFailedException($this->parser->getErrorMessage(), $this->parser->getErrorCode());
         }
 
         if ($timestamp > 253402214400) {
@@ -151,7 +156,7 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         }
 
         try {
-            if ($dateOnly) {
+            if ($this->isPatternDateOnly) {
                 // we only care about year-month-date, which has been delivered as a timestamp pointing to UTC midnight
                 $dateTime = new \DateTimeImmutable(gmdate('Y-m-d', $timestamp), new \DateTimeZone($this->inputTimezone));
             } else {
@@ -174,33 +179,33 @@ final class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
     }
 
     /**
-     * Returns a preconfigured IntlDateFormatter instance.
-     *
-     * @param bool $ignoreTimezone use UTC regardless of the configured timezone
-     *
      * @throws TransformationFailedException in case the date formatter can not be constructed
      */
-    private function getIntlDateFormatter(bool $ignoreTimezone = false, bool $ignoreStrict = false): \IntlDateFormatter
+    private function getIntlDateFormatter(bool $ignoreStrict = false): \IntlDateFormatter
     {
-        $dateFormat = $this->dateFormat;
-        $timeFormat = $this->timeFormat;
-        $timezone = new \DateTimeZone($ignoreTimezone ? 'UTC' : $this->outputTimezone);
-
-        $calendar = $this->calendar;
-        $pattern = $this->pattern;
-
-        $intlDateFormatter = new \IntlDateFormatter(\Locale::getDefault(), $dateFormat, $timeFormat, $timezone, $calendar, $pattern ?? '');
+        $timezone = new \DateTimeZone($this->isPatternDateOnly ? 'UTC' : $this->outputTimezone);
+        $intlDateFormatter = new \IntlDateFormatter(
+            $this->locale,
+            $this->dateFormat,
+            $this->timeFormat,
+            $timezone,
+            $this->calendar,
+            $this->pattern,
+        );
         $intlDateFormatter->setLenient(false);
 
         if ($ignoreStrict) {
             // Some patterns use a comma for separation, but this interferes with string input.
-            $pattern = $intlDateFormatter->getPattern();
-            $intlDateFormatter->setPattern(str_replace(',', '', $pattern));
+            $intlDateFormatter->setPattern(str_replace(',', '', $intlDateFormatter->getPattern()));
         }
 
         return $intlDateFormatter;
     }
 
+    /**
+     * Date-only patterns require parsing to be done in UTC, as midnight might
+     * not exist in the local timezone due to DST changes.
+     */
     private function isPatternDateOnly(): bool
     {
         if ($this->pattern === null) {
