@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Rollerworks\Component\Search\Value;
 
-final readonly class Compare implements RequiresComparatorValueHolder
+final class Compare implements RequiresComparatorValueHolder
 {
     public const OPERATORS = ['>=', '<=', '<>', '<', '>'];
 

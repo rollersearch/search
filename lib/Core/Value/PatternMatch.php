@@ -18,7 +18,7 @@ use Rollerworks\Component\Search\Exception\InvalidArgumentException;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-final readonly class PatternMatch implements ValueHolder
+final class PatternMatch implements ValueHolder
 {
     public const PATTERN_CONTAINS = 'CONTAINS';
     public const PATTERN_STARTS_WITH = 'STARTS_WITH';
