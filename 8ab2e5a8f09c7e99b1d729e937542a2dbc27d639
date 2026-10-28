@@ -1,0 +1,1 @@
+{"schema":1,"id":356,"category":"feature","title":"[Core] Use configured locale option instead of runtime guessing","flags":["bc-break"],"authors":["sstok"]}
