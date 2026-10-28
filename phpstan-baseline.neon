@@ -55,6 +55,18 @@ parameters:
 			path: lib/Core/Tests/Extension/Core/ChoiceList/Factory/PropertyAccessDecoratorTest.php
 
 		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with \*NEVER\* and array will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 8
+			path: lib/Core/Tests/Input/Validator/ChainValidatorTest.php
+
+		-
+			message: '#^Parameter \#1 \$expected of method PHPUnit\\Framework\\Assert\:\:assertSame\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 8
+			path: lib/Core/Tests/Input/Validator/ChainValidatorTest.php
+
+		-
 			message: '#^Parameter &\$query @param\-out type of method Rollerworks\\Component\\Search\\Doctrine\\Dbal\\Query\\QueryGenerator\:\:processCompares\(\) expects array\<string\>, array given\.$#'
 			identifier: paramOut.type
 			count: 2

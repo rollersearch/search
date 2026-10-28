@@ -20,15 +20,15 @@ use Rollerworks\Component\Search\Field\FieldTypeExtension;
 /**
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
  */
-final readonly class PreloadedExtension implements SearchExtension
+final class PreloadedExtension implements SearchExtension
 {
     /**
      * @param array<string, FieldType>            $types
      * @param array<string, FieldTypeExtension[]> $typeExtensions ['typeName' => [new MyTypeExtension()]
      */
     public function __construct(
-        private array $types,
-        private array $typeExtensions = [],
+        private readonly array $types,
+        private readonly array $typeExtensions = [],
     ) {}
 
     public function getType(string $name): FieldType
