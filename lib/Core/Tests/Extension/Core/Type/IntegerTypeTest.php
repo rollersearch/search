@@ -65,9 +65,7 @@ final class IntegerTypeTest extends SearchIntegrationTestCase
      */
     public function non_western_formatting(): void
     {
-        \Locale::setDefault('ar_BH');
-
-        $field = $this->getFactory()->createField('number', IntegerType::class);
+        $field = $this->getFactory()->createField('number', IntegerType::class, ['locale' => 'ar_BH']);
 
         FieldTransformationAssertion::assertThat($field)
             ->withInput('١٢٣٤٥', '12345')

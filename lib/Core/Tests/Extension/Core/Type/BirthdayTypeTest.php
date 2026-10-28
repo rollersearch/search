@@ -25,6 +25,28 @@ final class BirthdayTypeTest extends SearchIntegrationTestCase
     /**
      * @test
      */
+    public function with_date_and_age(): void
+    {
+        $field = $this->getFactory()->createField('birthday', BirthdayType::class, [
+            'pattern' => 'yyyy-MM-dd',
+        ]);
+
+        FieldTransformationAssertion::assertThat($field)
+            ->withInput('2010-06-02', '2010-06-02')
+            ->successfullyTransformsTo(new \DateTimeImmutable('2010-06-02'))
+            ->andReverseTransformsTo('2010-06-02', '2010-06-02')
+        ;
+
+        FieldTransformationAssertion::assertThat($field)
+            ->withInput('12', '12')
+            ->successfullyTransformsTo(12)
+            ->andReverseTransformsTo('12', '12')
+        ;
+    }
+
+    /**
+     * @test
+     */
     public function date_only_input(): void
     {
         $field = $this->getFactory()->createField('birthday', BirthdayType::class, [
@@ -41,6 +63,49 @@ final class BirthdayTypeTest extends SearchIntegrationTestCase
         FieldTransformationAssertion::assertThat($field)
             ->withInput('21')
             ->failsToTransforms()
+        ;
+    }
+
+    /**
+     * @test
+     */
+    public function with_localized_date(): void
+    {
+        $field = $this->getFactory()->createField('birthday', BirthdayType::class, [
+            'locale' => 'nl',
+            'allow_age' => false,
+            'format' => \IntlDateFormatter::SHORT,
+        ]);
+
+        FieldTransformationAssertion::assertThat($field)
+            ->withInput('2-6-2010', '2010-06-02')
+            ->successfullyTransformsTo(new \DateTimeImmutable('2010-06-02'))
+            ->andReverseTransformsTo('02-06-2010', '2010-06-02')
+        ;
+    }
+
+    /**
+     * @test
+     */
+    public function with_non_western_input(): void
+    {
+        $field = $this->getFactory()->createField('birthday', BirthdayType::class, [
+            'format' => \IntlDateFormatter::SHORT,
+            'locale' => 'ar_BH',
+        ]);
+
+        // dump($field->getViewTransformer()->transform(new \DateTimeImmutable('2010-06-02')));
+
+        FieldTransformationAssertion::assertThat($field)
+            ->withInput('٢ /٦ /٢٠١٠', '2010-06-02')
+            ->successfullyTransformsTo(new \DateTimeImmutable('2010-06-02'))
+            ->andReverseTransformsTo("٢\u{200F}/٦\u{200F}/٢٠١٠", '2010-06-02') // 200F = RIGHT-TO-LEFT MARK
+        ;
+
+        FieldTransformationAssertion::assertThat($field)
+            ->withInput('١٢', '12')
+            ->successfullyTransformsTo(12)
+            ->andReverseTransformsTo('١٢', '12')
         ;
     }
 

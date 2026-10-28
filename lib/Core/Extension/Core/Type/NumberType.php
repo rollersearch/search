@@ -46,7 +46,8 @@ final class NumberType extends AbstractFieldType
             new NumberToLocalizedStringTransformer(
                 $options['scale'],
                 $options['grouping'],
-                $options['rounding_mode']
+                $options['rounding_mode'],
+                $options['locale']
             )
         );
 
@@ -68,6 +69,7 @@ final class NumberType extends AbstractFieldType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            'locale' => \Locale::getDefault(),
             // default scale is locale specific (usually around 3)
             'scale' => null,
             'grouping' => false,
@@ -75,6 +77,7 @@ final class NumberType extends AbstractFieldType
             'html5' => false,
         ]);
 
+        $resolver->setAllowedTypes('locale', ['null', 'string']);
         $resolver->setAllowedValues('rounding_mode', [
             NumberToLocalizedStringTransformer::ROUND_FLOOR,
             NumberToLocalizedStringTransformer::ROUND_DOWN,

@@ -42,9 +42,7 @@ final class IntegerType extends AbstractFieldType
         $config->setValueTypeSupport(Compare::class, true);
 
         $config->setNormTransformer(new IntegerToStringTransformer($options['rounding_mode']));
-        $config->setViewTransformer(
-            new IntegerToLocalizedStringTransformer($options['grouping'], $options['rounding_mode'])
-        );
+        $config->setViewTransformer(new IntegerToLocalizedStringTransformer($options['grouping'], $options['rounding_mode'], $options['locale']));
     }
 
     public function buildView(SearchFieldView $view, FieldConfig $config, array $options): void
@@ -56,6 +54,7 @@ final class IntegerType extends AbstractFieldType
     {
         $resolver->setDefaults(
             [
+                'locale' => \Locale::getDefault(),
                 'grouping' => false,
                 // Integer cast rounds towards 0, so do the same when displaying fractions
                 'rounding_mode' => \NumberFormatter::ROUND_DOWN,

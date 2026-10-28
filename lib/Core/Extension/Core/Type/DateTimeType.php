@@ -61,14 +61,15 @@ final class DateTimeType extends BaseDateTimeType
             $config->setViewTransformer(
                 new MultiTypeDataTransformer(
                     [
-                        CarbonInterval::class => new DateIntervalTransformer(\Locale::getDefault()),
+                        CarbonInterval::class => new DateIntervalTransformer($options['locale']),
                         \DateTimeImmutable::class => new DateTimeToLocalizedStringTransformer(
                             $options['model_timezone'],
                             $options['view_timezone'],
                             $options['date_format'],
                             $options['time_format'],
                             \IntlDateFormatter::GREGORIAN,
-                            $options['pattern']
+                            $options['pattern'],
+                            $options['locale'],
                         ),
                     ]
                 )
@@ -93,7 +94,8 @@ final class DateTimeType extends BaseDateTimeType
                     $options['date_format'],
                     $options['time_format'],
                     \IntlDateFormatter::GREGORIAN,
-                    $options['pattern']
+                    $options['pattern'],
+                    $options['locale']
                 )
             );
 
@@ -112,7 +114,7 @@ final class DateTimeType extends BaseDateTimeType
 
         if ($pattern === null) {
             $pattern = \IntlDateFormatter::create(
-                \Locale::getDefault(),
+                $options['locale'],
                 $options['date_format'],
                 $options['time_format'],
                 $options['view_timezone'],
@@ -129,6 +131,7 @@ final class DateTimeType extends BaseDateTimeType
     {
         $resolver->setDefaults(
             [
+                'locale' => \Locale::getDefault(),
                 'model_timezone' => 'UTC',
                 'view_timezone' => null,
                 'pattern' => null,
@@ -145,6 +148,9 @@ final class DateTimeType extends BaseDateTimeType
             ]
         );
 
+        $resolver->setAllowedTypes('locale', ['string']);
+        $resolver->setAllowedTypes('model_timezone', ['string']);
+        $resolver->setAllowedTypes('view_timezone', ['string', 'null']);
         $resolver->setAllowedTypes('pattern', ['string', 'null']);
         $resolver->setAllowedTypes('allow_relative', 'bool');
         $resolver->setAllowedTypes('date_format', ['int']);

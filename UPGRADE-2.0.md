@@ -9,6 +9,12 @@ UPGRADE FROM 2.0 to 2.1
  * Not implementing the `initialize()` method in a `Rollerworks\Component\Search\Input\Validator`
    implementation class is deprecated and will be required in v3.0.
 
+ * Build-in types with locale handling now always set the "locale" option with a default
+   value rather than using `\Locale::getDefault()` during the transformation.
+
+   Previously changing the locale with `\Locale::setDefault()` during the parsing process
+   could result in a different locale being used during the transformation.
+
 ### Symfony Bundle
 
  * The `rollerworks_search.validator` service class has been replaced with the

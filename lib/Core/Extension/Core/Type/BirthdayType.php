@@ -47,7 +47,8 @@ final class BirthdayType extends AbstractFieldType
             new LocalizedBirthdayTransformer(
                 $config->getViewTransformer(),
                 $options['allow_age'],
-                $options['allow_future_date']
+                $options['allow_future_date'],
+                $options['locale']
             )
         );
 
